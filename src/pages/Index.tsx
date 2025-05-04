@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { quizData } from "@/data/quizQuestions";
 import QuizCard from "@/components/QuizCard";
@@ -226,7 +225,12 @@ const Index = () => {
           </div>
         ) : quizCompleted ? (
           <div className="py-12 px-4">
-            <QuizResult score={score} totalQuestions={totalQuestions} onRetry={handleRetry} />
+            <QuizResult 
+              score={score} 
+              totalQuestions={totalQuestions} 
+              onRetry={handleRetry} 
+              userAnswers={answers}
+            />
           </div>
         ) : (
           <div className="py-12 px-4">
