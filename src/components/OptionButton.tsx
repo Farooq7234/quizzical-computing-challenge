@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Check } from "lucide-react";
 
 interface OptionButtonProps {
   option: string;
@@ -18,11 +19,11 @@ const OptionButton: React.FC<OptionButtonProps> = ({
 
   return (
     <button
-      className={`w-full text-left p-4 mb-3 rounded-lg transition-all duration-200 border 
+      className={`w-full text-left p-4 mb-3 rounded-lg transition-all duration-300 border 
       ${
         isSelected
-          ? "bg-purple-600 text-white border-purple-700 shadow-md"
-          : "bg-white text-gray-800 border-gray-200 hover:border-purple-300 hover:shadow-sm"
+          ? "bg-primary text-primary-foreground border-primary-foreground shadow-md scale-[1.02]"
+          : "bg-card text-card-foreground border-border hover:border-primary/50 hover:shadow-sm dark:hover:border-primary/30"
       }`}
       onClick={() => onSelect(index)}
     >
@@ -31,8 +32,8 @@ const OptionButton: React.FC<OptionButtonProps> = ({
           className={`flex items-center justify-center w-6 h-6 mr-3 rounded-full 
           ${
             isSelected
-              ? "bg-white text-purple-600"
-              : "bg-gray-100 text-gray-600 border border-gray-300"
+              ? "bg-primary-foreground text-primary"
+              : "bg-muted text-muted-foreground border border-border"
           }`}
         >
           <span className="text-sm font-medium">
@@ -40,6 +41,12 @@ const OptionButton: React.FC<OptionButtonProps> = ({
           </span>
         </div>
         <span className="text-md">{option}</span>
+        {isSelected && (
+          <Check 
+            className="w-5 h-5 ml-auto text-primary-foreground" 
+            aria-hidden="true"
+          />
+        )}
       </div>
     </button>
   );
