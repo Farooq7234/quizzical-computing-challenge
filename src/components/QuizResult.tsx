@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { RefreshCcw, Check, X, Award, BookOpen, Search, BookCheck, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
+import { RefreshCcw, Check, X, Award, BookOpen, Search, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { quizData } from "@/data/quizQuestions";
 import ReactConfetti from "react-confetti";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 
@@ -90,29 +90,12 @@ const QuizResult: React.FC<QuizResultProps> = ({
     resultIcon = <BookOpen className="h-8 w-8 text-orange-500" />;
   }
   
-  // Group questions by subject
-  const subjectGroups = {};
-  quizData.forEach((question, index) => {
-    if (!subjectGroups[question.subject]) {
-      subjectGroups[question.subject] = [];
-    }
-    subjectGroups[question.subject].push({
-      ...question,
-      userAnswer: userAnswers[index] !== undefined ? userAnswers[index] : -1,
-      index,
-    });
-  });
-  
-  const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? null : section);
-  };
-  
-  // Get subject list and background classes for each subject
-  const subjects = Object.keys(subjectGroups);
+  // Get subject color classes
   const subjectColorClasses = {
     "Database Management": "bg-blue-500/80 text-white",
     "Operating Systems": "bg-purple-500/80 text-white",
     "Computer Networks": "bg-green-500/80 text-white",
+    "Object-Oriented Programming": "bg-orange-500/80 text-white",
     // Default if subject doesn't match
     "default": "bg-primary/80 text-primary-foreground"
   };
@@ -121,20 +104,9 @@ const QuizResult: React.FC<QuizResultProps> = ({
     return subjectColorClasses[subject] || subjectColorClasses.default;
   };
   
-  // Calculate stats per subject
-  const subjectStats = subjects.map(subject => {
-    const questionsInSubject = subjectGroups[subject].length;
-    const correctAnswers = subjectGroups[subject].filter(q => 
-      q.userAnswer === q.correctAnswer
-    ).length;
-    
-    return {
-      subject,
-      questionsInSubject,
-      correctAnswers,
-      percentage: Math.round((correctAnswers / questionsInSubject) * 100)
-    };
-  });
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
   
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
@@ -163,14 +135,6 @@ const QuizResult: React.FC<QuizResultProps> = ({
                 <h2 className="text-3xl font-bold">Quiz Results</h2>
                 <p className="text-muted-foreground">Completed on {new Date().toLocaleDateString()}</p>
               </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {subjects.map((subject) => (
-                <Badge key={subject} variant="outline" className={`${getSubjectColorClass(subject)} px-3 py-1.5 text-sm font-medium`}>
-                  {subject}
-                </Badge>
-              ))}
             </div>
           </div>
         </div>
@@ -207,42 +171,6 @@ const QuizResult: React.FC<QuizResultProps> = ({
                 {resultMessage}
               </h3>
             </div>
-          </div>
-          
-          {/* Subject breakdown */}
-          <div className="rounded-xl bg-card overflow-hidden border shadow-sm">
-            <div 
-              className="p-6 flex items-center justify-between cursor-pointer bg-gradient-to-r from-primary/5 to-transparent"
-              onClick={() => toggleSection('subjects')}
-            >
-              <h3 className="text-xl font-medium flex items-center gap-2">
-                <BookCheck className="h-5 w-5 text-primary" /> 
-                Performance by Subject
-              </h3>
-              {expandedSection === 'subjects' ? 
-                <ChevronUp className="h-5 w-5 text-muted-foreground" /> : 
-                <ChevronDown className="h-5 w-5 text-muted-foreground" />
-              }
-            </div>
-            
-            {expandedSection === 'subjects' && (
-              <div className="p-6 pt-0 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {subjectStats.map((stat) => (
-                  <div key={stat.subject} className="p-4 border rounded-lg bg-card/50">
-                    <div className="text-sm font-medium text-muted-foreground mb-1">
-                      {stat.subject}
-                    </div>
-                    <div className="text-2xl font-bold">
-                      {stat.correctAnswers}/{stat.questionsInSubject}
-                    </div>
-                    <Progress 
-                      value={stat.percentage} 
-                      className="h-2 mt-2" 
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
           
           {/* Answer summary */}
@@ -294,12 +222,7 @@ const QuizResult: React.FC<QuizResultProps> = ({
                           >
                             <TableCell className="font-medium">{qIndex + 1}</TableCell>
                             <TableCell className="max-w-[300px] truncate">
-                              <div className="flex items-start gap-2">
-                                <Badge variant="outline" className={`${getSubjectColorClass(question.subject)} px-1.5 py-0.5 text-xs`}>
-                                  {question.subject.split(' ')[0]}
-                                </Badge>
-                                <span>{question.question}</span>
-                              </div>
+                              <span>{question.question}</span>
                             </TableCell>
                             <TableCell className={userAnswer === -1 ? "text-muted-foreground italic" : ""}>
                               {userAnswerText}

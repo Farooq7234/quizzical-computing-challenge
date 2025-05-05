@@ -4,10 +4,11 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Book, BookOpen, Brain, CheckCircle, Code, Database, Network, Server, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
+  const navigate = useNavigate();
 
   // Animation control
   useEffect(() => {
@@ -64,6 +65,14 @@ const Index = () => {
     }
   ];
 
+  const handleStartQuiz = () => {
+    // Scroll to the subject selection section
+    const subjectSection = document.getElementById('subject-section');
+    if (subjectSection) {
+      subjectSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background/50 to-background transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
@@ -92,13 +101,12 @@ const Index = () => {
                   Challenge yourself with questions on Database Management, Operating Systems, Computer Networks, and Object-Oriented Programming.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/quiz/dbms">
-                    <button
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center justify-center gap-2 w-full"
-                    >
-                      Start Quiz <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </Link>
+                  <button
+                    onClick={handleStartQuiz}
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center justify-center gap-2 w-full"
+                  >
+                    Start Quiz <ArrowRight className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
               <div className="bg-card rounded-xl p-6 border border-border shadow-lg">
@@ -126,7 +134,7 @@ const Index = () => {
           </section>
 
           {/* Subject Quizzes Section */}
-          <section className="py-16 border-t border-border">
+          <section id="subject-section" className="py-16 border-t border-border">
             <h2 className="text-3xl font-bold text-center mb-4">Choose Your Subject</h2>
             <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
               Select a specific area to test your knowledge with our subject-focused quizzes
