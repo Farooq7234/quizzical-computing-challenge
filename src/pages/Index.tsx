@@ -203,7 +203,7 @@ const Index = () => {
                 {subjectQuizzes.map((quiz, index) => (
                   <Link to={quiz.path} key={index}>
                     <button
-                      className={`bg-${quiz.color.split('/')[0]} hover:bg-${quiz.color.split('/')[0]}/90 text-white px-6 py-2 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center gap-2`}
+                      className={`bg-${quiz.color.split('/')[0]} hover:bg-${quiz.color.split('/')[0]}/90 dark:text-white px-6 py-2 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center gap-2`}
                       style={{backgroundColor: `var(--${quiz.color.split('/')[0]}-500)`}}
                     >
                       {quiz.name.split(' ')[0]}
