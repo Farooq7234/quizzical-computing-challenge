@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Book, BookOpen, Brain, CheckCircle, Code, Database, Network, Server, Sparkles, LightbulbIcon, CheckCircle2, Timer } from "lucide-react";
+import { ArrowRight, Book, BookOpen, Brain, CheckCircle, Code, Database, Network, Server, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -84,114 +85,47 @@ const Index = () => {
         </nav>
         
         <div className={`px-6 sm:px-10 ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
-          {/* Redesigned Hero Section with Fixed Alignment */}
-          <section className="py-16 md:py-20">
-            <div className="relative">
-              {/* Background Elements */}
-              <div className="absolute inset-0 -z-10 overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
-                <div className="absolute top-40 -left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-20 right-40 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
-              </div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                {/* Hero Content */}
-                <div className="space-y-6 relative z-10">
-                  <div className="inline-block">
-                    <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
-                      <Brain className="h-4 w-4" /> Challenge Your Knowledge
-                    </span>
-                  </div>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                    Master <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">Computer Science</span> Concepts
-                  </h1>
-                  <p className="text-lg text-muted-foreground">
-                    Interactive quizzes designed to test and enhance your understanding of core computer science subjects.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <button
-                      onClick={handleStartQuiz}
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto font-medium"
-                    >
-                      Start Quiz <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
+          {/* Hero Section */}
+          <section className="py-16 md:py-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+              <div className="space-y-6">
+                <div className="inline-block">
+                  <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                    CS Knowledge Challenge
+                  </span>
                 </div>
-                
-                {/* Hero Interactive Element - Fixed Grid */}
-                <div className="relative z-10">
-                  <div className="grid grid-cols-6 gap-4 h-full">
-                    {/* Main Feature Card */}
-                    <div 
-                      className="col-span-6 md:col-span-3 row-span-2 h-64 md:h-auto relative group rounded-xl border border-border shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-blue-500/20 opacity-60"></div>
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 p-6 flex flex-col justify-end">
-                        <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-3">
-                          <Database className="h-6 w-6 text-primary" />
-                        </div>
-                        <h3 className="font-semibold text-white text-xl mb-1">{subjectQuizzes[0].name}</h3>
-                        <p className="text-white/80 text-sm mb-3 line-clamp-2">{subjectQuizzes[0].description}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-white/80 flex items-center gap-1">
-                            <CheckCircle2 className="h-3 w-3" /> {subjectQuizzes[0].questions} Questions
-                          </span>
-                          <span className="text-xs text-white/80 flex items-center gap-1">
-                            <Timer className="h-3 w-3" /> 15 min
-                          </span>
-                        </div>
-                        <Link to={subjectQuizzes[0].path} className="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl">
-                          <span className="sr-only">Start {subjectQuizzes[0].name} Quiz</span>
-                        </Link>
-                      </div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                  Test Your Computer Science Expertise
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                  Challenge yourself with questions on Database Management, Operating Systems, Computer Networks, and Object-Oriented Programming.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleStartQuiz}
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center justify-center gap-2 w-full"
+                  >
+                    Start Quiz <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="bg-card rounded-xl p-6 border border-border shadow-lg">
+                <div className="aspect-[4/3] bg-primary/5 rounded-lg flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle className="h-10 w-10 text-primary" />
                     </div>
-                    
-                    {/* Other Subject Cards - Equal Heights */}
-                    {subjectQuizzes.slice(1).map((quiz, index) => (
-                      <div 
-                        key={index}
-                        className="col-span-6 md:col-span-3 h-40 relative group rounded-xl border border-border shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
-                      >
-                        <div className={`absolute inset-0 ${quiz.color.replace("/80", "/20")} opacity-60`}></div>
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 p-4 flex flex-col justify-end">
-                          <div className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-2">
-                            {quiz.icon}
-                          </div>
-                          <h3 className="font-semibold text-white text-base mb-1">{quiz.name}</h3>
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-white/80 flex items-center gap-1">
-                              <CheckCircle2 className="h-3 w-3" /> {quiz.questions} Questions
-                            </span>
-                            <span className="text-xs text-white/80 flex items-center gap-1">
-                              <Timer className="h-3 w-3" /> 15 min
-                            </span>
-                          </div>
-                          <Link to={quiz.path} className="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl">
-                            <span className="sr-only">Start {quiz.name} Quiz</span>
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                    
-                    {/* Features Cards - Equal Heights */}
-                    <div className="col-span-6 md:col-span-3 bg-card border border-border rounded-xl p-4 flex items-center gap-3 h-20">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <CheckCircle className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium">Instant Feedback</h4>
-                        <p className="text-xs text-muted-foreground">See your results immediately</p>
-                      </div>
-                    </div>
-                    
-                    <div className="col-span-6 md:col-span-3 bg-card border border-border rounded-xl p-4 flex items-center gap-3 h-20">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium">4 Core Subjects</h4>
-                        <p className="text-xs text-muted-foreground">Comprehensive coverage</p>
-                      </div>
+                    <h3 className="text-2xl font-semibold mb-4">
+                      4 Subject Areas
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      Specialized quizzes with 15 questions each
+                    </p>
+                    <div className="flex justify-center gap-2 flex-wrap">
+                      <span className="px-3 py-1 bg-blue-500/20 text-blue-600 dark:text-blue-400 dark:bg-blue-500/30 rounded-full text-sm">DBMS</span>
+                      <span className="px-3 py-1 bg-purple-500/20 text-purple-600 dark:text-purple-400 dark:bg-purple-500/30 rounded-full text-sm">OS</span>
+                      <span className="px-3 py-1 bg-green-500/20 text-green-600 dark:text-green-400 dark:bg-green-500/30 rounded-full text-sm">CN</span>
+                      <span className="px-3 py-1 bg-orange-500/20 text-orange-600 dark:text-orange-400 dark:bg-orange-500/30 rounded-full text-sm">OOPS</span>
                     </div>
                   </div>
                 </div>
@@ -269,7 +203,7 @@ const Index = () => {
                 {subjectQuizzes.map((quiz, index) => (
                   <Link to={quiz.path} key={index}>
                     <button
-                      className={`bg-${quiz.color.split('/')[0]} hover:bg-${quiz.color.split('/')[0]}/90 dark:text-white px-6 py-2 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center gap-2`}
+                      className={`bg-${quiz.color.split('/')[0]} hover:bg-${quiz.color.split('/')[0]}/90 text-white px-6 py-2 rounded-lg transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-lg flex items-center gap-2`}
                       style={{backgroundColor: `var(--${quiz.color.split('/')[0]}-500)`}}
                     >
                       {quiz.name.split(' ')[0]}
