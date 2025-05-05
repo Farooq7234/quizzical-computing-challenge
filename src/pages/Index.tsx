@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
@@ -85,7 +84,7 @@ const Index = () => {
         </nav>
         
         <div className={`px-6 sm:px-10 ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
-          {/* New Hero Section */}
+          {/* Redesigned Hero Section with Fixed Alignment */}
           <section className="py-16 md:py-20">
             <div className="relative">
               {/* Background Elements */}
@@ -95,9 +94,9 @@ const Index = () => {
                 <div className="absolute -bottom-20 right-40 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 {/* Hero Content */}
-                <div className="lg:col-span-5 space-y-6 relative z-10">
+                <div className="space-y-6 relative z-10">
                   <div className="inline-block">
                     <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
                       <Brain className="h-4 w-4" /> Challenge Your Knowledge
@@ -119,20 +118,46 @@ const Index = () => {
                   </div>
                 </div>
                 
-                {/* Hero Interactive Element */}
-                <div className="lg:col-span-7 relative z-10">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {subjectQuizzes.map((quiz, index) => (
+                {/* Hero Interactive Element - Fixed Grid */}
+                <div className="relative z-10">
+                  <div className="grid grid-cols-6 gap-4 h-full">
+                    {/* Main Feature Card */}
+                    <div 
+                      className="col-span-6 md:col-span-3 row-span-2 h-64 md:h-auto relative group rounded-xl border border-border shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-blue-500/20 opacity-60"></div>
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 p-6 flex flex-col justify-end">
+                        <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-3">
+                          <Database className="h-6 w-6 text-primary" />
+                        </div>
+                        <h3 className="font-semibold text-white text-xl mb-1">{subjectQuizzes[0].name}</h3>
+                        <p className="text-white/80 text-sm mb-3 line-clamp-2">{subjectQuizzes[0].description}</p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-white/80 flex items-center gap-1">
+                            <CheckCircle2 className="h-3 w-3" /> {subjectQuizzes[0].questions} Questions
+                          </span>
+                          <span className="text-xs text-white/80 flex items-center gap-1">
+                            <Timer className="h-3 w-3" /> 15 min
+                          </span>
+                        </div>
+                        <Link to={subjectQuizzes[0].path} className="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl">
+                          <span className="sr-only">Start {subjectQuizzes[0].name} Quiz</span>
+                        </Link>
+                      </div>
+                    </div>
+                    
+                    {/* Other Subject Cards - Equal Heights */}
+                    {subjectQuizzes.slice(1).map((quiz, index) => (
                       <div 
                         key={index}
-                        className={`relative group h-40 overflow-hidden rounded-xl border border-border shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${index === 0 ? 'col-span-2 row-span-2 h-full md:h-auto' : ''}`}
+                        className="col-span-6 md:col-span-3 h-40 relative group rounded-xl border border-border shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
                       >
                         <div className={`absolute inset-0 ${quiz.color.replace("/80", "/20")} opacity-60`}></div>
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 p-5 flex flex-col justify-end">
-                          <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-3">
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 p-4 flex flex-col justify-end">
+                          <div className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-2">
                             {quiz.icon}
                           </div>
-                          <h3 className="font-semibold text-white text-lg mb-1">{quiz.name}</h3>
+                          <h3 className="font-semibold text-white text-base mb-1">{quiz.name}</h3>
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-white/80 flex items-center gap-1">
                               <CheckCircle2 className="h-3 w-3" /> {quiz.questions} Questions
@@ -148,9 +173,9 @@ const Index = () => {
                       </div>
                     ))}
                     
-                    {/* Features Cards */}
-                    <div className="col-span-2 bg-card border border-border rounded-xl p-4 flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    {/* Features Cards - Equal Heights */}
+                    <div className="col-span-6 md:col-span-3 bg-card border border-border rounded-xl p-4 flex items-center gap-3 h-20">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                         <CheckCircle className="h-5 w-5 text-primary" />
                       </div>
                       <div>
@@ -159,8 +184,8 @@ const Index = () => {
                       </div>
                     </div>
                     
-                    <div className="col-span-2 bg-card border border-border rounded-xl p-4 flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <div className="col-span-6 md:col-span-3 bg-card border border-border rounded-xl p-4 flex items-center gap-3 h-20">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                         <BookOpen className="h-5 w-5 text-primary" />
                       </div>
                       <div>
